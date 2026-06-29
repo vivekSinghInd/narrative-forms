@@ -1,8 +1,21 @@
 <script setup lang="ts">
-import { ref, watch, onMounted, onUnmounted, nextTick } from "vue";
+import { ref, watch, nextTick, computed } from "vue";
 import type { NarrativeField, FieldStatus, NarrativeTypewriter, NarrativeFieldValues } from "@viveksinghind/narrative-form-core";
 import { validateField, validateFieldAsync, hasAsyncValidation } from "@viveksinghind/narrative-form-core";
 import ErrorMessage from "./ErrorMessage.vue";
+import Prose from "./Prose.vue";
+import FilledValue from "./FilledValue.vue";
+import ChipsField from "./fields/ChipsField.vue";
+import MultiChipsField from "./fields/MultiChipsField.vue";
+import SelectField from "./fields/SelectField.vue";
+import OtpField from "./fields/OtpField.vue";
+import PasswordField from "./fields/PasswordField.vue";
+import DateField from "./fields/DateField.vue";
+import TextField from "./fields/TextField.vue";
+import EmailField from "./fields/EmailField.vue";
+import NumberField from "./fields/NumberField.vue";
+import TelField from "./fields/TelField.vue";
+import InlineInput from "./InlineInput.vue";
 
 const props = defineProps<{
   field: NarrativeField;
@@ -25,61 +38,57 @@ const emit = defineEmits<{
   (e: "blur", key: string, value: string): void;
 }>();
 
-const inputRef = ref<HTMLInputElement | null>(null);
-const typedPrompt = ref("");
-const localValue = ref(props.value ? String(props.value) : "");
+const fieldComponentMap: Record<string, any> = {
+  chips: ChipsField,
+  "multi-chips": MultiChipsField,
+  select: SelectField,
+  otp: OtpField,
+  password: PasswordField,
+  date: DateField,
+  text: TextField,
+  email: EmailField,
+  number: NumberField,
+  tel: TelField,
+};
+
+const currentFieldComponent = computed(() => {
+  return fieldComponentMap[props.field.type] || InlineInput;
+});
+
+const localValue = ref(props.value !== undefined ? props.value : "");
 const errorMsg = ref<string | null>(null);
 const isValidating = ref(false);
 
-let interval: ReturnType<typeof setInterval>;
+const isFieldEditable = computed(() => props.field.editable !== false && props.editable && !props.locked);
+const shouldAnimate = computed(() => props.field.animate !== false && props.typewriter?.enabled !== false);
 
 // Sync external value
 watch(() => props.value, (newVal) => {
-  if (newVal !== undefined && String(newVal) !== localValue.value) {
-    localValue.value = String(newVal);
+  if (newVal !== undefined && newVal !== localValue.value) {
+    localValue.value = newVal;
   }
 });
 
-// Typewriter
-watch(() => props.status, (newStatus) => {
-  if (newStatus === "typing") {
-    if (!props.typewriter.enabled) {
-      typedPrompt.value = props.field.prompt;
-      emit("typingComplete", props.field.key);
-      return;
-    }
-
-    let i = 0;
-    interval = setInterval(() => {
-      typedPrompt.value = props.field.prompt.slice(0, i + 1);
-      i++;
-      if (i >= props.field.prompt.length) {
-        clearInterval(interval);
-        emit("typingComplete", props.field.key);
-      }
-    }, props.typewriter.speed ?? 30);
-  } else if (newStatus === "active" || newStatus === "editing") {
-    nextTick(() => {
-      inputRef.value?.focus();
-    });
+const handleTypingComplete = () => {
+  if (props.status === "typing") {
+    emit("typingComplete", props.field.key);
   }
-}, { immediate: true });
+};
 
-onUnmounted(() => {
-  clearInterval(interval);
-});
-
-const onInput = (event: Event) => {
-  const target = event.target as HTMLInputElement;
-  localValue.value = target.value;
-  emit("change", props.field.key, target.value);
+const handleFieldChange = (val: any) => {
+  localValue.value = val;
+  const strVal = Array.isArray(val) ? val.join(", ") : String(val);
+  emit("change", props.field.key, strVal);
   if (errorMsg.value) {
     errorMsg.value = null;
   }
 };
 
-const handleConfirm = async () => {
-  const syncResult = validateField(props.field, localValue.value);
+const handleConfirmVal = async (val: any) => {
+  localValue.value = val;
+  const strVal = Array.isArray(val) ? val.join(", ") : String(val);
+
+  const syncResult = validateField(props.field, val, props.allValues);
   if (!syncResult.valid) {
     errorMsg.value = syncResult.error || "Invalid input";
     emit("error", props.field.key, errorMsg.value);
@@ -88,7 +97,7 @@ const handleConfirm = async () => {
 
   if (hasAsyncValidation(props.field)) {
     isValidating.value = true;
-    const asyncResult = await validateFieldAsync(props.field, localValue.value);
+    const asyncResult = await validateFieldAsync(props.field, val, props.allValues);
     isValidating.value = false;
     
     if (!asyncResult.valid) {
@@ -99,43 +108,60 @@ const handleConfirm = async () => {
   }
 
   errorMsg.value = null;
-  emit("confirm", props.field.key, localValue.value);
+  emit("confirm", props.field.key, strVal);
 };
 
+const handleEdit = () => {
+  errorMsg.value = null;
+  emit("edit", props.field.key);
+};
 </script>
 
 <template>
-  <div class="ns-line fade-in">
+  <div :class="['ns-line fade-in', field.className]">
     <div class="ns-prompt-row">
-      <span class="ns-prompt">
-        {{ status === "typing" ? typedPrompt : field.prompt }}
-      </span>
+      <Prose
+        :text="field.prefix || field.prompt || ''"
+        :animate="status === 'typing' && shouldAnimate"
+        :speed="typewriter?.speed"
+        :cursor="typewriter?.cursor !== false"
+        :cursorChar="typewriter?.cursorChar"
+        :pauseAfter="typewriter?.pauseAfter"
+        @complete="handleTypingComplete"
+      />
       
-      <span v-if="status === 'confirmed'" class="ns-value">
-        {{ localValue }}
-      </span>
-      
-      <button 
-        v-if="status === 'confirmed' && editable && !locked"
-        type="button" 
-        class="ns-edit-btn" 
-        @click="emit('edit', field.key)"
-      >
-        {{ editLabel }}
-      </button>
+      <FilledValue
+        v-if="status === 'confirmed'"
+        :value="Array.isArray(localValue) ? localValue.join(', ') : String(localValue)"
+        :suffix="field.suffix"
+        :editable="isFieldEditable"
+        :editLabel="editLabel"
+        @edit="handleEdit"
+      />
     </div>
 
     <div v-if="status === 'active' || status === 'editing'" class="ns-input-row">
-      <input
-        ref="inputRef"
-        :type="field.type === 'email' ? 'email' : (field.type === 'password' ? 'password' : 'text')"
-        class="ns-input"
+      <component
+        :is="currentFieldComponent"
+        :fieldKey="field.key"
+        :type="field.type"
+        :placeholder="field.placeholder"
+        :defaultValue="status === 'editing' ? localValue : field.defaultValue"
+        :suffix="field.suffix"
+        :options="field.options"
+        :otpLength="field.otpLength"
+        :autoAdvance="field.autoAdvance"
+        :resendLabel="field.resendLabel"
+        :resendDelay="field.resendDelay"
+        :sanitise="field.sanitise"
+        :inputClassName="field.inputClassName"
         :disabled="isValidating"
-        :value="localValue"
-        @input="onInput"
+        @confirm="handleConfirmVal"
+        @change="handleFieldChange"
         @focus="emit('focus', field.key)"
-        @blur="emit('blur', field.key, localValue)"
-        @keydown.enter.prevent="handleConfirm"
+        @blur="(v: string) => emit('blur', field.key, v)"
+        @request="field.onRequest && field.onRequest()"
+        @verify="field.onVerify && field.onVerify($event)"
       />
     </div>
     
@@ -159,39 +185,7 @@ const handleConfirm = async () => {
   align-items: center;
   flex-wrap: wrap;
 }
-.ns-prompt {
-  font-size: 1.125rem;
-  margin-right: 0.5rem;
-}
-.ns-value {
-  font-size: 1.125rem;
-  font-weight: 600;
-  color: #007bff;
-  margin-right: 0.5rem;
-}
-.ns-edit-btn {
-  margin-left: 0.5rem;
-  padding: 0.25rem 0.5rem;
-  border-radius: 4px;
-  background-color: rgba(0,0,0,0.05);
-  border: none;
-  cursor: pointer;
-  font-size: 0.75rem;
-  font-weight: bold;
-}
 .ns-input-row {
   margin-top: 0.5rem;
-}
-.ns-input {
-  font-size: 1.125rem;
-  padding: 0.5rem 0;
-  border: none;
-  border-bottom: 2px solid #007bff;
-  outline: none;
-  width: 100%;
-  background: transparent;
-}
-.ns-input:disabled {
-  border-bottom-color: #ccc;
 }
 </style>
