@@ -1,49 +1,49 @@
 {
-    "name":  "@viveksinghind/narrative-form-core",
-    "version":  "1.0.2",
-    "description":  "Core logic and state machine for narrative-form — framework agnostic typewriter form engine",
-    "author":  "Vivek Singh \u003cvivekSinghInd\u003e",
-    "license":  "MIT",
-    "main":  "dist/index.cjs",
-    "module":  "dist/index.mjs",
-    "types":  "dist/index.d.ts",
-    "sideEffects":  false,
-    "files":  [
-                  "dist"
-              ],
-    "exports":  {
-                    ".":  {
-                              "types":  "./dist/index.d.ts",
-                              "import":  "./dist/index.mjs",
-                              "require":  "./dist/index.cjs"
-                          }
-                },
-    "scripts":  {
-                    "build":  "tsup",
-                    "dev":  "tsup --watch",
-                    "typecheck":  "tsc --noEmit",
-                    "clean":  "rimraf dist"
-                },
-    "devDependencies":  {
-                            "tsup":  "^8.0.2",
-                            "typescript":  "^5.4.5",
-                            "rimraf":  "^5.0.5"
-                        },
-    "keywords":  [
-                     "narrative-form",
-                     "typewriter",
-                     "form",
-                     "onboarding",
-                     "signup",
-                     "typescript"
-                 ],
-    "repository":  {
-                       "type":  "git",
-                       "url":  "https://github.com/vivekSinghInd/narrative-form.git",
-                       "directory":  "packages/core"
-                   },
-    "homepage":  "https://github.com/vivekSinghInd/narrative-form#readme",
-    "bugs":  {
-                 "url":  "https://github.com/vivekSinghInd/narrative-form/issues"
-             }
+    "name": "@viveksinghind/narrative-form-core",
+    "version": "1.0.4",
+    "description": "Core logic and state machine for narrative-form — framework agnostic typewriter form engine",
+    "author": "Vivek Singh <vivekSinghInd>",
+    "license": "MIT",
+    "main": "dist/index.cjs",
+    "module": "dist/index.mjs",
+    "types": "dist/index.d.ts",
+    "sideEffects": false,
+    "files": [
+        "dist"
+    ],
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.mjs",
+            "require": "./dist/index.cjs"
+        }
+    },
+    "scripts": {
+        "build": "tsup",
+        "dev": "tsup --watch",
+        "typecheck": "tsc --noEmit",
+        "clean": "rimraf dist"
+    },
+    "devDependencies": {
+        "tsup": "^8.0.2",
+        "typescript": "^5.4.5",
+        "rimraf": "^5.0.5"
+    },
+    "keywords": [
+        "narrative-form",
+        "typewriter",
+        "form",
+        "onboarding",
+        "signup",
+        "typescript"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/vivekSinghInd/narrative-form.git",
+        "directory": "packages/core"
+    },
+    "homepage": "https://github.com/vivekSinghInd/narrative-form#readme",
+    "bugs": {
+        "url": "https://github.com/vivekSinghInd/narrative-form/issues"
+    }
 }

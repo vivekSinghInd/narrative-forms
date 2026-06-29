@@ -1,53 +1,53 @@
 {
-    "name":  "@viveksinghind/narrative-form-native",
-    "version":  "1.0.2",
-    "description":  "React Native components for narrative-form — typewriter-style sign-up flow",
-    "author":  "Vivek Singh \u003cvivekSinghInd\u003e",
-    "license":  "MIT",
-    "main":  "dist/index.js",
-    "types":  "dist/index.d.ts",
-    "sideEffects":  false,
-    "files":  [
-                  "dist"
-              ],
-    "exports":  {
-                    ".":  {
-                              "require":  "./dist/index.js",
-                              "import":  "./dist/index.js",
-                              "types":  "./dist/index.d.ts"
-                          }
-                },
-    "scripts":  {
-                    "build":  "tsc",
-                    "dev":  "tsc --watch",
-                    "typecheck":  "tsc --noEmit",
-                    "clean":  "rimraf dist"
-                },
-    "dependencies":  {
-                         "@viveksinghind/narrative-form-core":  "workspace:*"
-                     },
-    "peerDependencies":  {
-                             "react":  "\u003e=17.0.0"
-                         },
-    "devDependencies":  {
-                            "@types/react":  "^18.3.1",
-                            "@types/react-native":  "0.70.0",
-                            "rimraf":  "^5.0.5",
-                            "tsup":  "^8.0.2",
-                            "typescript":  "^5.4.5"
-                        },
-    "keywords":  [
-                     "react-native",
-                     "narrative-form",
-                     "typewriter",
-                     "form",
-                     "onboarding",
-                     "signup",
-                     "typescript"
-                 ],
-    "repository":  {
-                       "type":  "git",
-                       "url":  "https://github.com/vivekSinghInd/narrative-form.git",
-                       "directory":  "packages/native"
-                   }
+    "name": "@viveksinghind/narrative-form-native",
+    "version": "1.0.4",
+    "description": "React Native components for narrative-form — typewriter-style sign-up flow",
+    "author": "Vivek Singh <vivekSinghInd>",
+    "license": "MIT",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "sideEffects": false,
+    "files": [
+        "dist"
+    ],
+    "exports": {
+        ".": {
+            "require": "./dist/index.js",
+            "import": "./dist/index.js",
+            "types": "./dist/index.d.ts"
+        }
+    },
+    "scripts": {
+        "build": "tsc",
+        "dev": "tsc --watch",
+        "typecheck": "tsc --noEmit",
+        "clean": "rimraf dist"
+    },
+    "dependencies": {
+        "@viveksinghind/narrative-form-core": "workspace:*"
+    },
+    "peerDependencies": {
+        "react": ">=17.0.0"
+    },
+    "devDependencies": {
+        "@types/react": "^18.3.1",
+        "@types/react-native": "0.70.0",
+        "rimraf": "^5.0.5",
+        "tsup": "^8.0.2",
+        "typescript": "^5.4.5"
+    },
+    "keywords": [
+        "react-native",
+        "narrative-form",
+        "typewriter",
+        "form",
+        "onboarding",
+        "signup",
+        "typescript"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/vivekSinghInd/narrative-form.git",
+        "directory": "packages/native"
+    }
 }
