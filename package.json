@@ -1,0 +1,19 @@
+{
+  "name": "narrative-form-monorepo",
+  "private": true,
+  "description": "Monorepo for narrative-form packages",
+  "scripts": {
+    "build": "pnpm -r build",
+    "test": "pnpm -r test",
+    "lint": "pnpm -r lint",
+    "typecheck": "pnpm -r typecheck",
+    "changeset": "changeset",
+    "version": "changeset version",
+    "publish": "changeset publish",
+    "clean": "pnpm -r clean"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.27.1",
+    "typescript": "^5.4.5"
+  }
+}

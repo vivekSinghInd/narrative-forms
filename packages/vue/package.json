@@ -1,0 +1,57 @@
+{
+    "name":  "@viveksinghind/narrative-form-vue",
+    "version":  "1.0.2",
+    "description":  "Vue 3 components for narrative-form — typewriter-style sign-up flow",
+    "author":  "Vivek Singh \u003cvivekSinghInd\u003e",
+    "license":  "MIT",
+    "main":  "dist/index.cjs",
+    "module":  "dist/index.mjs",
+    "types":  "dist/index.d.ts",
+    "sideEffects":  false,
+    "files":  [
+                  "dist"
+              ],
+    "exports":  {
+                    ".":  {
+                              "import":  "./dist/index.mjs",
+                              "require":  "./dist/index.cjs",
+                              "types":  "./dist/index.d.ts"
+                          }
+                },
+    "scripts":  {
+                    "build":  "vite build",
+                    "dev":  "vite build --watch",
+                    "typecheck":  "vue-tsc --noEmit",
+                    "clean":  "rimraf dist"
+                },
+    "dependencies":  {
+                         "@viveksinghind/narrative-form-core":  "workspace:*"
+                     },
+    "peerDependencies":  {
+                             "vue":  "\u003e=3.0.0"
+                         },
+    "devDependencies":  {
+                            "@vitejs/plugin-vue":  "^5.0.4",
+                            "rimraf":  "^5.0.5",
+                            "typescript":  "^5.4.5",
+                            "vite":  "^5.2.11",
+                            "vite-plugin-dts":  "^5.0.3",
+                            "vue":  "^3.4.27",
+                            "vue-tsc":  "^2.0.16"
+                        },
+    "keywords":  [
+                     "vue",
+                     "vue3",
+                     "narrative-form",
+                     "typewriter",
+                     "form",
+                     "onboarding",
+                     "signup",
+                     "typescript"
+                 ],
+    "repository":  {
+                       "type":  "git",
+                       "url":  "https://github.com/vivekSinghInd/narrative-form.git",
+                       "directory":  "packages/vue"
+                   }
+}

@@ -1,0 +1,650 @@
+/*
+ * narrative-form Base CSS
+ *
+ * Implements the "letter being written" aesthetic.
+ * All classes are prefixed with `ns-`.
+ * CSS variables map 1:1 to NarrativeTheme tokens for full theming.
+ */
+
+:root {
+  /* ── Colors ── */
+  --ns-bg: #faf9f7;
+  --ns-text: #1a1a1a;
+  --ns-primary: #3b82f6;
+  --ns-error: #ef4444;
+  --ns-muted: #888888;
+  --ns-border: #d4d4d4;
+  --ns-filled-color: #3b82f6;
+  --ns-cursor-color: #3b82f6;
+  --ns-success-color: #22c55e;
+  --ns-loading-color: #3b82f6;
+  --ns-placeholder-color: #9ca3af;
+
+  /* ── Typography ── */
+  --ns-font-family: "Georgia", "Times New Roman", serif;
+  --ns-ui-font: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --ns-font-size: 1.25rem;
+  --ns-mobile-font-size: 1.1rem;
+  --ns-input-font-style: italic;
+  --ns-line-height: 1.8;
+
+  /* ── Spacing ── */
+  --ns-line-gap: 1rem;
+  --ns-page-padding: 2rem;
+
+  /* ── Buttons ── */
+  --ns-btn-radius: 6px;
+  --ns-btn-bg: #3b82f6;
+  --ns-btn-color: #ffffff;
+  --ns-enter-size: 1.5em;
+
+  /* ── Chips ── */
+  --ns-chip-radius: 100px;
+  --ns-chip-border: #d4d4d4;
+  --ns-chip-active-bg: #3b82f6;
+  --ns-chip-active-color: #ffffff;
+  --ns-chip-font-style: italic;
+
+  /* ── Animations ── */
+  --ns-transition: 0.2s ease-in-out;
+}
+
+/* ── Root Layout ── */
+.ns-root {
+  font-family: var(--ns-font-family);
+  font-size: var(--ns-font-size);
+  color: var(--ns-text);
+  background: var(--ns-bg);
+  line-height: var(--ns-line-height);
+  padding: var(--ns-page-padding);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+@media (max-width: 640px) {
+  .ns-root {
+    font-size: var(--ns-mobile-font-size);
+    padding: 1.25rem;
+  }
+}
+
+/* The continuous letter body */
+.ns-letter {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ns-line-gap);
+}
+
+/* ── Lines (Sentences) ── */
+.ns-line {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4em;
+  transition: opacity var(--ns-transition);
+}
+
+.ns-line--confirmed {
+  opacity: 0.8;
+}
+
+.ns-line--shake {
+  animation: ns-shake 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+/* ── Prose (Text) ── */
+.ns-prose {
+  display: inline;
+}
+
+/* Blinking cursor */
+.ns-cursor {
+  display: inline-block;
+  width: 1ch;
+  animation: ns-blink 1s step-end infinite;
+  color: var(--ns-cursor-color);
+  opacity: 0.7;
+}
+
+/* ── Inputs ── */
+.ns-input-wrap {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+}
+
+.ns-input {
+  font-family: inherit;
+  font-size: inherit;
+  font-style: var(--ns-input-font-style);
+  color: inherit;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid var(--ns-border);
+  padding: 0 0.2em;
+  outline: none;
+  transition: border-color var(--ns-transition);
+  min-width: 8ch;
+  max-width: 100%;
+}
+
+.ns-input::placeholder {
+  color: var(--ns-placeholder-color);
+  font-style: var(--ns-input-font-style);
+}
+
+.ns-input:focus {
+  border-bottom-color: var(--ns-primary);
+}
+
+.ns-enter-btn {
+  background: transparent;
+  border: none;
+  color: var(--ns-primary);
+  font-size: var(--ns-enter-size);
+  cursor: pointer;
+  margin-left: 0.4em;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: all var(--ns-transition);
+}
+
+.ns-input:focus + .ns-enter-btn,
+.ns-input:not(:placeholder-shown) + .ns-enter-btn,
+.ns-enter-btn:focus {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Filled Value ── */
+.ns-filled-wrap {
+  display: inline-flex;
+  align-items: center;
+  font-weight: 600;
+  color: var(--ns-filled-color);
+}
+
+.ns-edit-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  margin-left: 0.4em;
+  padding: 0.2em;
+  opacity: 0.5;
+  transition: opacity var(--ns-transition);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ns-edit-btn:hover,
+.ns-edit-btn:focus {
+  opacity: 1;
+}
+
+.ns-edit-icon {
+  width: 1em;
+  height: 1em;
+  fill: currentColor;
+}
+
+/* ── Chips ── */
+.ns-chips-wrap {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.5em;
+  align-items: center;
+}
+
+.ns-chip {
+  font-family: var(--ns-ui-font);
+  font-size: 0.9em;
+  font-style: var(--ns-chip-font-style);
+  padding: 0.2em 0.8em;
+  border: 1px solid var(--ns-chip-border);
+  border-radius: var(--ns-chip-radius);
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  transition: all var(--ns-transition);
+}
+
+.ns-chip--hover,
+.ns-chip:hover,
+.ns-chip:focus {
+  border-color: var(--ns-primary);
+  outline: none;
+}
+
+.ns-chip--active {
+  background: var(--ns-chip-active-bg);
+  border-color: var(--ns-chip-active-bg);
+  color: var(--ns-chip-active-color);
+  font-style: normal;
+}
+
+/* ── Select ── */
+.ns-select-wrap {
+  display: inline-flex;
+  align-items: center;
+}
+
+.ns-select {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid var(--ns-primary);
+  padding: 0 1.2em 0 0.2em;
+  outline: none;
+  cursor: pointer;
+  appearance: none;
+  background-image: url('data:image/svg+xml;utf8,<svg fill="none" stroke="%233b82f6" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>');
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-size: 1em;
+}
+
+/* ── OTP Field ── */
+.ns-otp-wrap {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+
+.ns-otp-boxes {
+  display: inline-flex;
+  gap: 0.4em;
+}
+
+.ns-otp-box {
+  width: 2em;
+  height: 2.5em;
+  font-family: inherit;
+  font-size: inherit;
+  text-align: center;
+  border: 1px solid var(--ns-border);
+  border-radius: 4px;
+  background: transparent;
+  color: inherit;
+  transition: border-color var(--ns-transition);
+}
+
+.ns-otp-box:focus {
+  border-color: var(--ns-primary);
+  outline: none;
+}
+
+.ns-otp-resend-wrap {
+  font-size: 0.8em;
+}
+
+.ns-otp-resend {
+  background: transparent;
+  border: none;
+  color: var(--ns-primary);
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+}
+
+.ns-otp-resend--disabled {
+  color: var(--ns-muted);
+  cursor: not-allowed;
+  text-decoration: none;
+}
+
+/* ── Error Messages ── */
+.ns-error-wrap {
+  display: flex;
+  width: 100%;
+}
+
+.ns-error-wrap--inline {
+  margin-top: -0.2em;
+  margin-bottom: 0.5em;
+}
+
+.ns-error-wrap--tooltip {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 10;
+  background: var(--ns-bg);
+  border: 1px solid var(--ns-error);
+  padding: 0.4em 0.8em;
+  border-radius: 4px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.ns-error-text {
+  font-size: 0.85em;
+  color: var(--ns-error);
+  font-style: italic;
+}
+
+.ns-error-text--shake {
+  animation: ns-shake 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+/* ── Loading / Success Indicators ── */
+.ns-loading-indicator {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  border: 2px solid transparent;
+  border-top-color: var(--ns-loading-color);
+  border-radius: 50%;
+  animation: ns-spin 0.6s linear infinite;
+  margin-left: 0.4em;
+}
+
+.ns-success-indicator {
+  color: var(--ns-success-color);
+  margin-left: 0.4em;
+  font-size: 1.1em;
+}
+
+/* ── Toasts ── */
+.ns-toast-container {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  z-index: 9999;
+}
+
+.ns-toast {
+  background: #222;
+  color: #fff;
+  padding: 0.75rem 1.25rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1rem;
+  font-family: var(--ns-ui-font);
+}
+
+.ns-toast-close {
+  background: transparent;
+  border: none;
+  color: #aaa;
+  cursor: pointer;
+  font-size: 1.25rem;
+  padding: 0;
+  margin-left: auto;
+}
+
+.ns-toast-close:hover {
+  color: #fff;
+}
+
+/* ── Welcome Screen ── */
+.ns-welcome {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.5rem;
+  padding: 2rem 0;
+  animation: ns-fade-up 0.5s ease-out forwards;
+}
+
+.ns-welcome-heading {
+  font-family: var(--ns-font-family);
+  font-size: 2em;
+  font-weight: 700;
+  color: var(--ns-text);
+  line-height: 1.3;
+  margin: 0;
+}
+
+.ns-welcome-subtext {
+  font-family: var(--ns-font-family);
+  font-size: 1.1em;
+  color: var(--ns-muted);
+  line-height: 1.6;
+  margin: 0;
+  max-width: 36em;
+  opacity: 0;
+  animation: ns-fade-up 0.5s ease-out 0.3s forwards;
+}
+
+.ns-welcome-cta {
+  font-family: var(--ns-ui-font);
+  font-size: 1em;
+  font-weight: 600;
+  color: var(--ns-btn-color);
+  background: var(--ns-btn-bg);
+  border: none;
+  border-radius: var(--ns-btn-radius);
+  padding: 0.75em 2em;
+  cursor: pointer;
+  transition: all var(--ns-transition);
+  opacity: 0;
+  animation: ns-fade-up 0.5s ease-out 0.6s forwards;
+}
+
+.ns-welcome-cta:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.ns-welcome-cta:active {
+  transform: translateY(0);
+}
+
+/* ── Done Screen ── */
+.ns-done {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.5rem;
+  padding: 1.5rem 0;
+  margin-top: 0.5rem;
+  animation: ns-fade-up 0.4s ease-out forwards;
+}
+
+.ns-done-message {
+  font-family: var(--ns-font-family);
+  font-size: 1.1em;
+  color: var(--ns-text);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.ns-done-cta {
+  font-family: var(--ns-ui-font);
+  font-size: 1em;
+  font-weight: 600;
+  color: var(--ns-btn-color);
+  background: var(--ns-btn-bg);
+  border: none;
+  border-radius: var(--ns-btn-radius);
+  padding: 0.75em 2em;
+  cursor: pointer;
+  transition: all var(--ns-transition);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  min-width: 10em;
+  justify-content: center;
+}
+
+.ns-done-cta:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.ns-done-cta:active {
+  transform: translateY(0);
+}
+
+.ns-done-cta--loading {
+  opacity: 0.7;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.ns-done-cta--success {
+  background: var(--ns-success-color);
+  cursor: default;
+  pointer-events: none;
+}
+
+.ns-done-cta--error {
+  background: var(--ns-error);
+}
+
+.ns-done-error {
+  font-size: 0.85em;
+  color: var(--ns-error);
+  font-style: italic;
+  margin-top: -0.5rem;
+}
+
+/* ── Progress Dots ── */
+.ns-progress-wrap {
+  display: flex;
+  gap: 0.4em;
+  align-items: center;
+  padding: 1rem 0;
+}
+
+.ns-progress-dot {
+  width: 0.5em;
+  height: 0.5em;
+  border-radius: 50%;
+  background: var(--ns-border);
+  transition: all var(--ns-transition);
+}
+
+.ns-progress-dot--done {
+  background: var(--ns-primary);
+}
+
+.ns-progress-dot--active {
+  background: var(--ns-primary);
+  transform: scale(1.3);
+}
+
+/* ── Dark Mode ── */
+.ns-root--dark {
+  --ns-bg: #1a1a2e;
+  --ns-text: #e2e8f0;
+  --ns-primary: #60a5fa;
+  --ns-error: #f87171;
+  --ns-muted: #94a3b8;
+  --ns-border: #334155;
+  --ns-filled-color: #60a5fa;
+  --ns-cursor-color: #60a5fa;
+  --ns-success-color: #4ade80;
+  --ns-loading-color: #60a5fa;
+  --ns-placeholder-color: #64748b;
+  --ns-chip-border: #475569;
+  --ns-chip-active-bg: #60a5fa;
+  --ns-chip-active-color: #0f172a;
+  --ns-btn-bg: #60a5fa;
+  --ns-btn-color: #0f172a;
+}
+
+/* ── Animations ── */
+@keyframes ns-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes ns-shake {
+  10%, 90% { transform: translate3d(-1px, 0, 0); }
+  20%, 80% { transform: translate3d(2px, 0, 0); }
+  30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+  40%, 60% { transform: translate3d(4px, 0, 0); }
+}
+
+@keyframes ns-fade-up {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes ns-slide-down {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes ns-spin {
+  to { transform: rotate(360deg); }
+}
+
+.ns-animate-fade-up {
+  animation: ns-fade-up 0.3s ease-out forwards;
+}
+
+.ns-animate-slide-down {
+  animation: ns-slide-down 0.3s ease-out forwards;
+}
+
+/* ── RTL Layout ── */
+[dir="rtl"] .ns-line {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .ns-input {
+  text-align: right;
+}
+
+[dir="rtl"] .ns-edit-btn {
+  margin-left: 0;
+  margin-right: 0.4em;
+}
+
+[dir="rtl"] .ns-enter-btn {
+  margin-left: 0;
+  margin-right: 0.4em;
+}
+
+[dir="rtl"] .ns-filled-wrap {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .ns-chips-wrap {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .ns-welcome,
+[dir="rtl"] .ns-done {
+  align-items: flex-end;
+  text-align: right;
+}
+
+/* ── Root State Classes ── */
+.ns-root--submitting {
+  pointer-events: none;
+  opacity: 0.85;
+}
+
+.ns-root--loading .ns-letter {
+  opacity: 0.7;
+}
+
+/* ── Reduced Motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .ns-cursor,
+  .ns-line--shake,
+  .ns-error-text--shake,
+  .ns-loading-indicator,
+  .ns-welcome,
+  .ns-welcome-subtext,
+  .ns-welcome-cta,
+  .ns-done,
+  .ns-animate-fade-up,
+  .ns-animate-slide-down {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
