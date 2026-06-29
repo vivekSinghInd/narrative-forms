@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NarrativeField, NarrativeTypewriter, NarrativeFieldValues, FieldStatus, validateField, validateFieldAsync, hasAsyncValidation } from '@viveksinghind/narrative-form-core';
+import type { NarrativeField, NarrativeTypewriter, NarrativeFieldValues, FieldStatus } from '@viveksinghind/narrative-form-core';
+import { validateField, validateFieldAsync, hasAsyncValidation } from '@viveksinghind/narrative-form-core';
 import { NarrativeToastService } from '../services/toast.service';
 
 import { NarrativeProseComponent } from './prose.component';

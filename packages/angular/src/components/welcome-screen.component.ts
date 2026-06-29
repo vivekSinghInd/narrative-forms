@@ -1,6 +1,6 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ElementRef, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NarrativeWelcome, NarrativeTypewriter } from '@viveksinghind/narrative-form-core';
+import type { NarrativeWelcome, NarrativeTypewriter } from '@viveksinghind/narrative-form-core';
 import { NarrativeProseComponent } from './prose.component';
 
 @Component({

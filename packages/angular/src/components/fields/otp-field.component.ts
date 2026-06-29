@@ -208,7 +208,7 @@ export class NarrativeOtpFieldComponent implements OnInit, OnDestroy, AfterViewI
     if (pastedData.length === 0) return;
 
     for (let i = 0; i < pastedData.length; i++) {
-      this.digits[i] = pastedData[i];
+      this.digits[i] = pastedData.charAt(i);
     }
 
     this.emitChangeAndCheck(this.digits);

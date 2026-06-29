@@ -1,6 +1,6 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, OnDestroy, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NarrativeFormConfig, NarrativeFieldValues } from '@viveksinghind/narrative-form-core';
+import type { NarrativeFormConfig, NarrativeFieldValues } from '@viveksinghind/narrative-form-core';
 import { NarrativeFormStateService } from '../services/form-state.service';
 import { NarrativeWelcomeScreenComponent } from './welcome-screen.component';
 import { NarrativeLineComponent } from './line.component';

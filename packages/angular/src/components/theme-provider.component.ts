@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, OnChanges, SimpleChanges, PLATFORM_ID, Inject, OnDestroy } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { NarrativeTheme } from '@viveksinghind/narrative-form-core';
+import type { NarrativeTheme } from '@viveksinghind/narrative-form-core';
 
 const TOKEN_TO_CSS_VAR: Record<string, string> = {
   background: '--ns-bg',

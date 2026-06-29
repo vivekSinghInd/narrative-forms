@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NarrativeDone, NarrativeTypewriter } from '@viveksinghind/narrative-form-core';
+import type { NarrativeDone, NarrativeTypewriter } from '@viveksinghind/narrative-form-core';
 import { NarrativeProseComponent } from './prose.component';
 
 @Component({

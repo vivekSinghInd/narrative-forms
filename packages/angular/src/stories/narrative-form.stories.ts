@@ -37,7 +37,7 @@ export const Default: Story = {
         }
       ],
       done: {
-        heading: 'All done!',
+        title: 'All done!',
         message: 'Thank you for filling out the form.'
       }
     }
