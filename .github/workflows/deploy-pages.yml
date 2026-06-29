@@ -47,7 +47,7 @@ jobs:
         run: pnpm install --no-frozen-lockfile
         
       - name: Build Demo
-        run: pnpm --filter narrative-form-demo run build
+        run: pnpm --filter narrative-form-demo... run build
         
       - name: Setup Pages
         uses: actions/configure-pages@v4

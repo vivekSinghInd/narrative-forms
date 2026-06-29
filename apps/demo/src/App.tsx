@@ -38,7 +38,7 @@ const demoConfig: NarrativeFormConfig = {
   ],
   done: {
     show: true,
-    message: (values) => `Thanks ${values.name || 'there'}! Form completed successfully.`,
+    message: (values: Record<string, any>) => `Thanks ${values.name || 'there'}! Form completed successfully.`,
   }
 };
 
@@ -113,7 +113,7 @@ export default function App() {
             <div className="card demo-card">
               <NarrativeForm 
                 formConfig={demoConfig} 
-                callbacks={{ onComplete: (v) => console.log('Complete:', v) }} 
+                callbacks={{ onComplete: (v: any) => console.log('Complete:', v) }} 
               />
             </div>
           </section>
