@@ -1,6 +1,6 @@
 {
     "name": "@viveksinghind/narrative-form-vue",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "description": "Vue 3 components for narrative-form — typewriter-style sign-up flow",
     "author": "Vivek Singh <vivekSinghInd>",
     "license": "MIT",

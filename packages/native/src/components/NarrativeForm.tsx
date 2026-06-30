@@ -43,6 +43,7 @@ export interface NarrativeFormProps {
   direction?: "ltr" | "rtl";
   crossFieldValidators?: NarrativeCrossFieldValidator[];
   reducedMotion?: boolean;
+  layout?: "lines" | "paragraph";
 }
 
 const NarrativeFormInner: React.FC<NarrativeFormProps> = (props) => {
