@@ -88,20 +88,20 @@ const handleConfirmVal = async (val: any) => {
   localValue.value = val;
   const strVal = Array.isArray(val) ? val.join(", ") : String(val);
 
-  const syncResult = validateField(props.field, val, props.allValues);
+  const syncResult = validateField(val, props.field.validation, props.allValues);
   if (!syncResult.valid) {
-    errorMsg.value = syncResult.error || "Invalid input";
+    errorMsg.value = syncResult.errors[0] || "Invalid input";
     emit("error", props.field.key, errorMsg.value);
     return;
   }
 
-  if (hasAsyncValidation(props.field)) {
+  if (hasAsyncValidation(props.field.validation)) {
     isValidating.value = true;
-    const asyncResult = await validateFieldAsync(props.field, val, props.allValues);
+    const asyncResult = await validateFieldAsync(val, props.field.validation, props.allValues).promise;
     isValidating.value = false;
     
     if (!asyncResult.valid) {
-      errorMsg.value = asyncResult.error || "Invalid input";
+      errorMsg.value = asyncResult.errors[0] || "Invalid input";
       emit("error", props.field.key, errorMsg.value);
       return;
     }
@@ -121,7 +121,7 @@ const handleEdit = () => {
   <div :class="['ns-line fade-in', field.className]">
     <div class="ns-prompt-row">
       <Prose
-        :text="field.prefix || field.prompt || ''"
+        :text="field.prefix || ''"
         :animate="status === 'typing' && shouldAnimate"
         :speed="typewriter?.speed"
         :cursor="typewriter?.cursor !== false"
