@@ -72,6 +72,12 @@ export default function OverviewPage() {
       <p>
         Ready to dive in? Head over to the <a href="#docs/installation">Installation</a> guide to get started.
       </p>
+
+      <div style={{ marginTop: "40px", paddingTop: "20px", borderTop: "1px solid var(--rule)" }}>
+        <p style={{ color: "var(--ink-soft)" }}>
+          Built by <a href="https://www.linkedin.com/in/vivek-singh2984/" target="_blank" rel="noopener noreferrer">Vivek Singh</a>
+        </p>
+      </div>
     </div>
   );
 }
