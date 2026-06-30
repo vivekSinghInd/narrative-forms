@@ -3,6 +3,8 @@ import PreviewCode from "../PreviewCode";
 import CodeBlock from "../CodeBlock";
 import type { NarrativeField } from "../../engine/types";
 
+import { useFramework } from "../FrameworkContext";
+
 export interface ComponentExample {
   id: string;
   title: string;
@@ -13,12 +15,14 @@ export interface ComponentExample {
 export interface ComponentPageConfig {
   name: string;
   description: string;
-  importLine: string;
+  importLine: (fw: string) => string;
   basicField: NarrativeField;
   examples: ComponentExample[];
 }
 
 export default function ComponentPage({ config }: { config: ComponentPageConfig }) {
+  const { framework } = useFramework();
+
   return (
     <div className="doc-page">
       <p className="doc-breadcrumb">
@@ -28,10 +32,16 @@ export default function ComponentPage({ config }: { config: ComponentPageConfig 
       <p className="doc-lead">{config.description}</p>
 
       <h2 id="usage">Usage</h2>
-      <CodeBlock lang="import" code={config.importLine} />
+      <CodeBlock lang="import" code={config.importLine(framework)} />
       <CodeBlock
-        lang="jsx"
-        code={`{ key: "${config.basicField.key}", type: "${config.basicField.type}", prefix: "${config.basicField.prefix}" }`}
+        lang={framework === "vue" ? "template" : framework === "angular" ? "html" : "jsx"}
+        code={
+          framework === "vue"
+            ? `<NarrativeForm :fields="[{ key: '${config.basicField.key}', type: '${config.basicField.type}', prefix: '${config.basicField.prefix}' }]" />`
+            : framework === "angular"
+            ? `<narrative-form [fields]="[{ key: '${config.basicField.key}', type: '${config.basicField.type}', prefix: '${config.basicField.prefix}' }]"></narrative-form>`
+            : `{ key: "${config.basicField.key}", type: "${config.basicField.type}", prefix: "${config.basicField.prefix}" }`
+        }
       />
 
       <h2 id="basic">Basic</h2>

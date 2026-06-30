@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useFramework } from "./FrameworkContext";
 
 export default function TopNav({
   onMenuClick,
@@ -8,6 +9,7 @@ export default function TopNav({
   onSearchClick: () => void;
 }) {
   const [dark, setDark] = useState(false);
+  const { framework, setFramework } = useFramework();
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", dark);
@@ -33,6 +35,33 @@ export default function TopNav({
         </div>
 
         <div className="topnav-right">
+          <div className="framework-toggle">
+            <button
+              className={`fw-btn${framework === "react" ? " fw-btn--active" : ""}`}
+              onClick={() => setFramework("react")}
+            >
+              React
+            </button>
+            <button
+              className={`fw-btn${framework === "vue" ? " fw-btn--active" : ""}`}
+              onClick={() => setFramework("vue")}
+            >
+              Vue
+            </button>
+            <button
+              className={`fw-btn${framework === "angular" ? " fw-btn--active" : ""}`}
+              onClick={() => setFramework("angular")}
+            >
+              Angular
+            </button>
+            <button
+              className={`fw-btn${framework === "native" ? " fw-btn--active" : ""}`}
+              onClick={() => setFramework("native")}
+            >
+              RN
+            </button>
+          </div>
+
           <button className="icon-btn search-trigger" onClick={onSearchClick} aria-label="Search">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
               <circle cx="11" cy="11" r="7" />

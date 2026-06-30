@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { FrameworkProvider } from "./docs/FrameworkContext";
 import TopNav from "./docs/TopNav";
 import Sidebar from "./docs/Sidebar";
 import Toc from "./docs/Toc";
@@ -109,16 +110,18 @@ export default function App() {
   }, [toc, slug]);
 
   return (
-    <div className="docs-shell">
-      <TopNav onMenuClick={() => setSidebarOpen((o) => !o)} onSearchClick={() => {}} />
-      <div className="docs-body">
-        <Sidebar active={slug} onNavigate={navigate} open={sidebarOpen} />
-        <main className="docs-main">
-          <div className="docs-main-inner">{Page}</div>
-        </main>
-        <Toc items={toc} active={activeToc} />
+    <FrameworkProvider>
+      <div className="docs-shell">
+        <TopNav onMenuClick={() => setSidebarOpen((o) => !o)} onSearchClick={() => {}} />
+        <div className="docs-body">
+          <Sidebar active={slug} onNavigate={navigate} open={sidebarOpen} />
+          <main className="docs-main">
+            <div className="docs-main-inner">{Page}</div>
+          </main>
+          <Toc items={toc} active={activeToc} />
+        </div>
+        {sidebarOpen && <div className="sidebar-backdrop" onClick={() => setSidebarOpen(false)} />}
       </div>
-      {sidebarOpen && <div className="sidebar-backdrop" onClick={() => setSidebarOpen(false)} />}
-    </div>
+    </FrameworkProvider>
   );
 }

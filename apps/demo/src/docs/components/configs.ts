@@ -3,7 +3,7 @@ import type { ComponentPageConfig } from "./ComponentPage";
 export const textConfig: ComponentPageConfig = {
   name: "Text",
   description: "A freeform text field — names, cities, usernames, anything that's plain text.",
-  importLine: `import { NarrativeForm } from "@viveksinghind/narrative-form-react";`,
+  importLine: (fw: string) => `import { NarrativeForm } from "@viveksinghind/narrative-form-${fw}";`,
   basicField: { key: "name", type: "text", prefix: "My name is", placeholder: "your name" },
   examples: [
     {
@@ -34,7 +34,7 @@ export const textConfig: ComponentPageConfig = {
 export const emailConfig: ComponentPageConfig = {
   name: "Email",
   description: "Validated email input with the device email keyboard on mobile.",
-  importLine: `import { NarrativeForm } from "@viveksinghind/narrative-form-react";`,
+  importLine: (fw: string) => `import { NarrativeForm } from "@viveksinghind/narrative-form-${fw}";`,
   basicField: { key: "email", type: "email", prefix: "Send my invite to", placeholder: "you@email.com" },
   examples: [
     {
@@ -60,7 +60,7 @@ export const emailConfig: ComponentPageConfig = {
 export const passwordConfig: ComponentPageConfig = {
   name: "Password",
   description: "Masked input with optional show/hide toggle and strength rules.",
-  importLine: `import { NarrativeForm } from "@viveksinghind/narrative-form-react";`,
+  importLine: (fw: string) => `import { NarrativeForm } from "@viveksinghind/narrative-form-${fw}";`,
   basicField: { key: "password", type: "password", prefix: "My password will be", placeholder: "min 8 characters" },
   examples: [
     {
@@ -97,7 +97,7 @@ export const passwordConfig: ComponentPageConfig = {
 export const numberConfig: ComponentPageConfig = {
   name: "Number",
   description: "Numeric-only input — age, pincode, amount.",
-  importLine: `import { NarrativeForm } from "@viveksinghind/narrative-form-react";`,
+  importLine: (fw: string) => `import { NarrativeForm } from "@viveksinghind/narrative-form-${fw}";`,
   basicField: { key: "age", type: "number", prefix: "I am", suffix: "years old", placeholder: "age" },
   examples: [
     {
@@ -139,7 +139,7 @@ export const numberConfig: ComponentPageConfig = {
 export const telConfig: ComponentPageConfig = {
   name: "Tel",
   description: "Phone number input with numeric keyboard and automatic paste sanitising.",
-  importLine: `import { NarrativeForm } from "@viveksinghind/narrative-form-react";`,
+  importLine: (fw: string) => `import { NarrativeForm } from "@viveksinghind/narrative-form-${fw}";`,
   basicField: {
     key: "phone",
     type: "tel",
@@ -177,7 +177,7 @@ export const telConfig: ComponentPageConfig = {
 export const chipsConfig: ComponentPageConfig = {
   name: "Chips",
   description: "Tap to select one option — auto-confirms by default, no ↵ required.",
-  importLine: `import { NarrativeForm } from "@viveksinghind/narrative-form-react";`,
+  importLine: (fw: string) => `import { NarrativeForm } from "@viveksinghind/narrative-form-${fw}";`,
   basicField: {
     key: "role",
     type: "chips",
@@ -209,7 +209,7 @@ export const chipsConfig: ComponentPageConfig = {
 export const multiChipsConfig: ComponentPageConfig = {
   name: "Multi-Chips",
   description: "Select multiple options — does not auto-advance, requires explicit confirm.",
-  importLine: `import { NarrativeForm } from "@viveksinghind/narrative-form-react";`,
+  importLine: (fw: string) => `import { NarrativeForm } from "@viveksinghind/narrative-form-${fw}";`,
   basicField: {
     key: "interests",
     type: "chips",
@@ -222,7 +222,7 @@ export const multiChipsConfig: ComponentPageConfig = {
 export const selectConfig: ComponentPageConfig = {
   name: "Select",
   description: "An inline dropdown for longer option lists where chips would wrap awkwardly.",
-  importLine: `import { NarrativeForm } from "@viveksinghind/narrative-form-react";`,
+  importLine: (fw: string) => `import { NarrativeForm } from "@viveksinghind/narrative-form-${fw}";`,
   basicField: {
     key: "country",
     type: "chips",
@@ -235,7 +235,7 @@ export const selectConfig: ComponentPageConfig = {
 export const dateConfig: ComponentPageConfig = {
   name: "Date",
   description: "Inline date picker — birthdate, start date, deadline.",
-  importLine: `import { NarrativeForm } from "@viveksinghind/narrative-form-react";`,
+  importLine: (fw: string) => `import { NarrativeForm } from "@viveksinghind/narrative-form-${fw}";`,
   basicField: { key: "dob", type: "text", prefix: "I was born on", placeholder: "DD/MM/YYYY" },
   examples: [],
 };
@@ -243,7 +243,7 @@ export const dateConfig: ComponentPageConfig = {
 export const otpConfig: ComponentPageConfig = {
   name: "OTP",
   description: "N-digit boxes with auto-advance focus, paste distribution, and resend countdown.",
-  importLine: `import { NarrativeForm } from "@viveksinghind/narrative-form-react";`,
+  importLine: (fw: string) => `import { NarrativeForm } from "@viveksinghind/narrative-form-${fw}";`,
   basicField: {
     key: "otp",
     type: "text",
