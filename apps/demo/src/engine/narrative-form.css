@@ -3,6 +3,24 @@
   width: 100%;
   --accent: #0d6efd;
   --ink: #1c1f24;
+  --ink-faint: #a39c8f;
+  --placeholder: #c9c2b4;
+  --paper-bg: #faf8f5;
+  --edit-btn: #bbb3a3;
+  --edit-hover: #ece6d8;
+  --chip-border: #e1dcd1;
+  --chip-hover: #f6f3eb;
+}
+
+html.dark .ns-root {
+  --ink: #eef0f3;
+  --ink-faint: #6b7280;
+  --placeholder: #565d68;
+  --paper-bg: #1a1d22;
+  --edit-btn: #4b5563;
+  --edit-hover: #374151;
+  --chip-border: #374151;
+  --chip-hover: #2a2d33;
 }
 
 .ns-layout-lines .ns-letter {
@@ -23,7 +41,7 @@
   font-size: 13px;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: var(--ink-faint, #a39c8f);
+  color: var(--ink-faint);
 }
 
 .ns-layout-lines .ns-line {
@@ -87,7 +105,7 @@
 }
 
 .ns-input::placeholder {
-  color: #c9c2b4;
+  color: var(--placeholder);
   font-style: italic;
 }
 
@@ -97,7 +115,7 @@
 
 .ns-enter-btn {
   background: var(--ink, #1a1a1a);
-  color: #faf8f5;
+  color: var(--paper-bg);
   border: none;
   border-radius: 4px;
   width: 26px;
@@ -134,7 +152,7 @@
 .ns-edit-btn {
   background: transparent;
   border: none;
-  color: #bbb3a3;
+  color: var(--edit-btn);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -149,7 +167,7 @@
 
 .ns-edit-btn:hover {
   color: var(--ink, #1a1a1a);
-  background: #ece6d8;
+  background: var(--edit-hover);
 }
 
 .ns-chips-wrap {
@@ -161,23 +179,24 @@
 .ns-chip {
   font-family: "Fraunces", serif;
   font-style: italic;
-  font-size: clamp(16px, 2vw, 19px);
+  font-size: clamp(17px, 2vw, 21px);
   color: var(--ink, #1a1a1a);
   background: transparent;
-  border: 1.5px solid #d8d0bf;
+  border: 1px solid var(--chip-border);
+  padding: 4px 14px 6px;
   border-radius: 100px;
-  padding: 6px 18px;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .ns-chip:hover {
+  background: var(--chip-hover);
   border-color: var(--ink, #1a1a1a);
 }
 
 .ns-chip--active {
   background: var(--ink, #1a1a1a);
-  color: #faf8f5;
+  color: var(--paper-bg);
   border-color: var(--ink, #1a1a1a);
 }
 
