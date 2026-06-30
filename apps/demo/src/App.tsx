@@ -3,6 +3,7 @@ import { FrameworkProvider } from "./docs/FrameworkContext";
 import TopNav from "./docs/TopNav";
 import Sidebar from "./docs/Sidebar";
 import Toc from "./docs/Toc";
+import OverviewPage, { toc as overviewToc } from "./docs/pages/Overview";
 import InstallationPage, { toc as installationToc } from "./docs/pages/Installation";
 import ConfigurationPage, { toc as configurationToc } from "./docs/pages/Configuration";
 import ValidationPage, { toc as validationToc } from "./docs/pages/Validation";
@@ -42,7 +43,7 @@ const componentConfigs: Record<string, typeof textConfig> = {
 function getSlugFromHash(): string {
   const hash = window.location.hash.replace(/^#\/?/, "");
   if (hash.startsWith("docs/")) return hash.slice(5);
-  return "installation";
+  return "overview";
 }
 
 export default function App() {
@@ -57,7 +58,7 @@ export default function App() {
       window.scrollTo({ top: 0 });
     };
     window.addEventListener("hashchange", onHashChange);
-    if (!window.location.hash) window.location.hash = "#docs/installation";
+    if (!window.location.hash) window.location.hash = "#docs/overview";
     return () => window.removeEventListener("hashchange", onHashChange);
   }, []);
 
@@ -67,6 +68,8 @@ export default function App() {
 
   const { Page, toc } = useMemo(() => {
     switch (slug) {
+      case "overview":
+        return { Page: <OverviewPage />, toc: overviewToc };
       case "installation":
         return { Page: <InstallationPage />, toc: installationToc };
       case "configuration":
@@ -88,7 +91,7 @@ export default function App() {
         if (config) {
           return { Page: <ComponentPage config={config} />, toc: buildToc(config) };
         }
-        return { Page: <InstallationPage />, toc: installationToc };
+        return { Page: <OverviewPage />, toc: overviewToc };
       }
     }
   }, [slug]);

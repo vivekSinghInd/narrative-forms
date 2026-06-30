@@ -69,19 +69,33 @@
 }
 
 /* The continuous letter body */
-.ns-letter {
+.ns-layout-lines .ns-letter {
   display: flex;
   flex-direction: column;
   gap: var(--ns-line-gap);
 }
+.ns-layout-paragraph .ns-letter {
+  display: block;
+}
 
 /* ── Lines (Sentences) ── */
-.ns-line {
+.ns-layout-lines .ns-line {
   display: inline-flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 0.4em;
   transition: opacity var(--ns-transition);
+}
+.ns-layout-paragraph .ns-line {
+  display: inline;
+  transition: opacity var(--ns-transition);
+}
+.ns-layout-paragraph .ns-prose {
+  margin-right: 0.4em;
+}
+.ns-layout-paragraph .ns-input-wrap,
+.ns-layout-paragraph .ns-filled-value {
+  margin-right: 0.4em;
 }
 
 .ns-line--confirmed {
@@ -591,6 +605,13 @@
 /* ── RTL Layout ── */
 [dir="rtl"] .ns-line {
   flex-direction: row-reverse;
+}
+
+[dir="rtl"] .ns-layout-paragraph .ns-prose,
+[dir="rtl"] .ns-layout-paragraph .ns-input-wrap,
+[dir="rtl"] .ns-layout-paragraph .ns-filled-value {
+  margin-right: 0;
+  margin-left: 0.4em;
 }
 
 [dir="rtl"] .ns-input {

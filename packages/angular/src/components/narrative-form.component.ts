@@ -18,7 +18,7 @@ import { NarrativeToastContainerComponent } from './toast-container.component';
     NarrativeToastContainerComponent
   ],
   template: `
-    <div [ngClass]="['ns-form', className]">
+    <div [ngClass]="['ns-form', className, layout === 'paragraph' ? 'ns-layout-paragraph' : 'ns-layout-lines']">
       <!-- Welcome Screen -->
       <ns-welcome-screen
         *ngIf="showWelcome"
@@ -67,6 +67,7 @@ export class NarrativeFormComponent implements OnInit {
   @Input() editable = true;
   @Input() editLabel = 'Edit';
   @Input() className = '';
+  @Input() layout: 'lines' | 'paragraph' = 'lines';
 
   @Output() completed = new EventEmitter<NarrativeFieldValues>();
   @Output() valuesChange = new EventEmitter<NarrativeFieldValues>();

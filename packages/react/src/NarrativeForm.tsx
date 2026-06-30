@@ -88,6 +88,8 @@ export interface NarrativeFormProps {
   retryLabel?: string;
   /** Whether reduced motion should be forced. */
   reducedMotion?: boolean;
+  /** Layout style: line-by-line (default) or continuous paragraph. */
+  layout?: "lines" | "paragraph";
 }
 
 
@@ -119,6 +121,7 @@ const NarrativeFormInner: React.FC<NarrativeFormProps> = function NarrativeFormI
   onFetchError,
   retryLabel,
   reducedMotion,
+  layout = "lines",
 }) {
   const { isDark } = useTheme();
   const i18n = useMemo(() => mergeStrings(stringsProp), [stringsProp]);
@@ -438,6 +441,7 @@ const NarrativeFormInner: React.FC<NarrativeFormProps> = function NarrativeFormI
     snapshot.isComplete ? "ns-root--complete" : undefined,
     isDark ? "ns-root--dark" : undefined,
     isSubmitting ? "ns-root--submitting" : undefined,
+    layout === "paragraph" ? "ns-layout-paragraph" : "ns-layout-lines",
     className,
   ]
     .filter(Boolean)

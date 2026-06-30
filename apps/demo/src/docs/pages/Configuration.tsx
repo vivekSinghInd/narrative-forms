@@ -35,6 +35,7 @@ export default function ConfigurationPage() {
         code={
           framework === "vue" ? `<NarrativeForm
   :fields="fields"
+  layout="paragraph"
   :welcome="{ heading: 'Welcome!', subtext: 'Let\\'s get to know you.' }"
   :done="{
     ctaLabel: 'Continue →',
@@ -45,6 +46,7 @@ export default function ConfigurationPage() {
   @complete="(values, meta) => {}"
 />` : framework === "angular" ? `<narrative-form
   [fields]="fields"
+  layout="paragraph"
   [welcome]="{ heading: 'Welcome!', subtext: 'Let\\'s get to know you.' }"
   [done]="{
     ctaLabel: 'Continue →',
@@ -55,6 +57,7 @@ export default function ConfigurationPage() {
   (complete)="onComplete($event)"
 ></narrative-form>` : `<NarrativeForm
   fields={fields}
+  layout="paragraph"
   welcome={{ heading: "Welcome!", subtext: "Let's get to know you." }}
   done={{
     ctaLabel: "Continue →",

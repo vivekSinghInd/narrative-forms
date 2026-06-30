@@ -12,6 +12,7 @@ export const guides: NavGroup[] = [
   {
     label: "GETTING STARTED",
     items: [
+      { label: "Overview", slug: "overview" },
       { label: "Installation", slug: "installation" },
       { label: "Configuration", slug: "configuration" },
     ],

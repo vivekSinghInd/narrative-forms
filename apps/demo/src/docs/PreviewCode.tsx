@@ -4,10 +4,12 @@ export default function PreviewCode({
   title,
   preview,
   code,
+  topBar,
 }: {
   title?: string;
   preview: ReactNode;
   code: string;
+  topBar?: ReactNode;
 }) {
   const [tab, setTab] = useState<"preview" | "code">("preview");
   const [copied, setCopied] = useState(false);
@@ -24,7 +26,10 @@ export default function PreviewCode({
 
   return (
     <div className="pc-block">
-      {title && <p className="pc-title mono">{title}</p>}
+      <div style={{ display: "flex", alignItems: "center" }}>
+        {title && <p className="pc-title mono">{title}</p>}
+        {topBar}
+      </div>
       <div className="pc-card">
         <div className="pc-stage">{preview}</div>
       </div>

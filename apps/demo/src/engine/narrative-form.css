@@ -5,10 +5,13 @@
   --ink: #1c1f24;
 }
 
-.ns-letter {
+.ns-layout-lines .ns-letter {
   display: flex;
   flex-direction: column;
   gap: 14px;
+}
+.ns-layout-paragraph .ns-letter {
+  display: block;
 }
 
 .ns-welcome {
@@ -23,13 +26,24 @@
   color: var(--ink-faint, #a39c8f);
 }
 
-.ns-line {
+.ns-layout-lines .ns-line {
   display: flex;
   align-items: baseline;
   flex-wrap: wrap;
   gap: 0;
   min-height: 46px;
   line-height: 1.6;
+}
+.ns-layout-paragraph .ns-line {
+  display: inline;
+  line-height: 1.6;
+}
+.ns-layout-paragraph .ns-prose {
+  margin-right: 0.2em;
+}
+.ns-layout-paragraph .ns-input-wrap,
+.ns-layout-paragraph .ns-filled-value {
+  margin-right: 0.2em;
 }
 
 .ns-prose {

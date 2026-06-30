@@ -29,8 +29,10 @@ const props = withDefaults(defineProps<{
   values?: NarrativeFieldValues;
   strings?: Partial<NarrativeI18n>;
   reducedMotion?: boolean;
+  layout?: "lines" | "paragraph";
 }>(), {
-  editable: true
+  editable: true,
+  layout: "lines"
 });
 
 const resolvedFields = computed(() => {
@@ -125,13 +127,13 @@ watch(() => visibleFields.value.length, () => {
 </script>
 
 <template>
-  <div class="ns-root" ref="scrollContainerRef">
-    <WelcomeScreen
-      v-if="!welcomeDismissed && resolvedWelcome"
-      :welcome="resolvedWelcome"
-      :typewriter="effectiveTypewriter"
-      @start="welcomeDismissed = true"
-    />
+    <div :class="['ns-root', layout === 'paragraph' ? 'ns-layout-paragraph' : 'ns-layout-lines']" ref="scrollContainerRef">
+      <WelcomeScreen
+        v-if="!welcomeDismissed && resolvedWelcome"
+        :welcome="resolvedWelcome"
+        :typewriter="effectiveTypewriter"
+        @start="welcomeDismissed = true"
+      />
 
     <div v-if="welcomeDismissed" class="ns-form-body">
       <Line
@@ -173,7 +175,13 @@ watch(() => visibleFields.value.length, () => {
   overflow-y: auto;
   padding: 1.25rem;
 }
-.ns-form-body {
+.ns-layout-lines .ns-form-body {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+.ns-layout-paragraph .ns-form-body {
+  display: block;
   flex-grow: 1;
 }
 </style>

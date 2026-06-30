@@ -13,6 +13,7 @@ interface NarrativeFormProps {
   onComplete?: (values: Record<string, string>) => void;
   compact?: boolean;
   speed?: number;
+  layout?: "lines" | "paragraph";
 }
 
 function EditIcon({ onClick }: { onClick: () => void }) {
@@ -39,6 +40,7 @@ export default function NarrativeForm({
   onComplete,
   compact = false,
   speed = 32,
+  layout = "lines",
 }: NarrativeFormProps) {
   const [values, setValues] = useState<Record<string, string>>({});
   const [confirmed, setConfirmed] = useState<Record<string, boolean>>({});
@@ -71,8 +73,8 @@ export default function NarrativeForm({
     bottomRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
   }, [visibleCount, done]);
 
-  const confirm = (field: NarrativeField, idx: number) => {
-    const raw = values[field.key] || "";
+  const confirm = (field: NarrativeField, idx: number, explicitValue?: string) => {
+    const raw = explicitValue !== undefined ? explicitValue : (values[field.key] || "");
     const value = field.sanitise ? field.sanitise(raw) : raw;
     const err = validateField(value, field.validation, values);
     if (err) {
@@ -98,7 +100,7 @@ export default function NarrativeForm({
   };
 
   return (
-    <div className={`ns-root${compact ? " ns-root--compact" : ""}`}>
+    <div className={`ns-root${compact ? " ns-root--compact" : ""} ${layout === "paragraph" ? "ns-layout-paragraph" : "ns-layout-lines"}`}>
       <div className="ns-letter">
         {welcomeHeading && (
           <div className="ns-welcome">
@@ -123,7 +125,7 @@ export default function NarrativeForm({
               setValues((vals) => ({ ...vals, [field.key]: v }));
               if (errors[field.key]) setErrors((e) => ({ ...e, [field.key]: null }));
             }}
-            onConfirm={() => confirm(field, idx)}
+            onConfirm={(val) => confirm(field, idx, val)}
             onEdit={() => startEdit(field.key)}
           />
         ))}
@@ -178,7 +180,7 @@ function Line({
   speed: number;
   inputRef: (el: HTMLInputElement | null) => void;
   onChange: (v: string) => void;
-  onConfirm: () => void;
+  onConfirm: (val?: string) => void;
   onEdit: () => void;
 }) {
   const tw = useTypewriter(field.prefix, true, speed);
@@ -212,7 +214,7 @@ function Line({
                     className={`ns-chip${value === opt ? " ns-chip--active" : ""}`}
                     onClick={() => {
                       onChange(opt);
-                      setTimeout(onConfirm, 80);
+                      setTimeout(() => onConfirm(opt), 80);
                     }}
                   >
                     {opt}

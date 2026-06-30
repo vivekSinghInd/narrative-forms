@@ -180,12 +180,27 @@ const handleEdit = () => {
 .ns-line {
   margin: 1rem 0;
 }
+:global(.ns-layout-paragraph) .ns-line {
+  display: inline;
+  margin: 0;
+  margin-right: 0.4em;
+}
+
 .ns-prompt-row {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
 }
+:global(.ns-layout-paragraph) .ns-prompt-row {
+  display: inline;
+  margin-right: 0.4em;
+}
+
 .ns-input-row {
   margin-top: 0.5rem;
+}
+:global(.ns-layout-paragraph) .ns-input-row {
+  display: inline-block;
+  margin-top: 0;
 }
 </style>
