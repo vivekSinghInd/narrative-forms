@@ -239,7 +239,7 @@ function Line({
                   spellCheck={false}
                 />
                 {canConfirm && (
-                  <button type="button" className="ns-enter-btn" onClick={onConfirm}>
+                  <button type="button" className="ns-enter-btn" onClick={() => onConfirm()}>
                     ↵
                   </button>
                 )}
