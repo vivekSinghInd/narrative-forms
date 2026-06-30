@@ -4,11 +4,11 @@
   "commit": false,
   "fixed": [
     [
-      "narrative-form-core",
-      "narrative-form-react",
-      "narrative-form-angular",
-      "narrative-form-vue",
-      "narrative-form-native"
+      "@viveksinghind/narrative-form-core",
+      "@viveksinghind/narrative-form-react",
+      "@viveksinghind/narrative-form-angular",
+      "@viveksinghind/narrative-form-vue",
+      "@viveksinghind/narrative-form-native"
     ]
   ],
   "linked": [],

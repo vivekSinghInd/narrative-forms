@@ -48,7 +48,7 @@ jobs:
 
       - name: Publish angular
         run: npm publish --access public
-        working-directory: dist/angular
+        working-directory: packages/angular
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
