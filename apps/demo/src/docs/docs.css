@@ -99,10 +99,10 @@ html.dark .btn--primary { background: var(--azure-deep); color: #fff; }
     top: 0;
     z-index: 60;
     height: var(--topnav-h);
-    background-color: rgba(255,255,255,.7);
+    background-color: rgba(255,255,255,.5);
     border-bottom: 1px solid var(--rule);
-    -webkit-backdrop-filter: blur(8px);
-    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
 }
 
 .topnav-inner {
