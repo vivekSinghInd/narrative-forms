@@ -3,6 +3,7 @@ import { FrameworkProvider } from "./docs/FrameworkContext";
 import TopNav from "./docs/TopNav";
 import Sidebar from "./docs/Sidebar";
 import Toc from "./docs/Toc";
+import LandingPage from "./docs/LandingPage";
 import OverviewPage, { toc as overviewToc } from "./docs/pages/Overview";
 import InstallationPage, { toc as installationToc } from "./docs/pages/Installation";
 import ConfigurationPage, { toc as configurationToc } from "./docs/pages/Configuration";
@@ -26,6 +27,7 @@ import {
   otpConfig,
 } from "./docs/components/configs";
 import "./docs/docs.css";
+import "./docs/landing.css";
 
 const componentConfigs: Record<string, typeof textConfig> = {
   text: textConfig,
@@ -40,31 +42,39 @@ const componentConfigs: Record<string, typeof textConfig> = {
   otp: otpConfig,
 };
 
-function getSlugFromHash(): string {
+type View = { mode: "landing" } | { mode: "docs"; slug: string };
+
+function parseHash(): View {
   const hash = window.location.hash.replace(/^#\/?/, "");
-  if (hash.startsWith("docs/")) return hash.slice(5);
-  return "overview";
+  if (hash.startsWith("docs/")) {
+    return { mode: "docs", slug: hash.slice(5) || "overview" };
+  }
+  if (hash === "docs") {
+    return { mode: "docs", slug: "overview" };
+  }
+  return { mode: "landing" };
 }
 
 export default function App() {
-  const [slug, setSlug] = useState(getSlugFromHash());
+  const [view, setView] = useState<View>(parseHash());
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [activeToc, setActiveToc] = useState("");
 
   useEffect(() => {
     const onHashChange = () => {
-      setSlug(getSlugFromHash());
+      setView(parseHash());
       setSidebarOpen(false);
       window.scrollTo({ top: 0 });
     };
     window.addEventListener("hashchange", onHashChange);
-    if (!window.location.hash) window.location.hash = "#docs/overview";
     return () => window.removeEventListener("hashchange", onHashChange);
   }, []);
 
   const navigate = (s: string) => {
     window.location.hash = `#docs/${s}`;
   };
+
+  const slug = view.mode === "docs" ? view.slug : "overview";
 
   const { Page, toc } = useMemo(() => {
     switch (slug) {
@@ -97,7 +107,7 @@ export default function App() {
   }, [slug]);
 
   useEffect(() => {
-    if (!toc.length) return;
+    if (view.mode !== "docs" || !toc.length) return;
     const observer = new IntersectionObserver(
       (entries) => {
         const visible = entries.filter((e) => e.isIntersecting);
@@ -110,8 +120,19 @@ export default function App() {
       if (el) observer.observe(el);
     });
     return () => observer.disconnect();
-  }, [toc, slug]);
+  }, [toc, slug, view.mode]);
 
+  /* ─── Landing Page ─── */
+  if (view.mode === "landing") {
+    return (
+      <FrameworkProvider>
+        <TopNav onMenuClick={() => {}} onSearchClick={() => {}} />
+        <LandingPage onGetStarted={() => navigate("overview")} />
+      </FrameworkProvider>
+    );
+  }
+
+  /* ─── Docs Shell ─── */
   return (
     <FrameworkProvider>
       <div className="docs-shell">

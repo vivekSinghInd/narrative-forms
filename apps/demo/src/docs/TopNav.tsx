@@ -93,7 +93,7 @@ export default function TopNav({
 
           <a
             className="icon-btn"
-            href="https://github.com/vivekSinghInd/narrative-form"
+            href="https://github.com/vivekSinghInd/narrative-forms"
             target="_blank"
             rel="noreferrer"
             aria-label="GitHub"

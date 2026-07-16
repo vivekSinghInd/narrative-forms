@@ -52,10 +52,10 @@ a { color: inherit; }
 button { font-family: inherit; }
 code { font-family: var(--mono); }
 
-::selection { background: var(--azure); color: #fff; }
+::selection { background: var(--azure-deep); color: #fff; }
 
 :focus-visible {
-  outline: 2px solid var(--azure);
+  outline: 2px solid var(--azure-deep);
   outline-offset: 2px;
 }
 
@@ -90,17 +90,19 @@ code { font-family: var(--mono); }
   background: var(--ink);
   color: var(--paper);
 }
-html.dark .btn--primary { background: var(--azure); color: #fff; }
+html.dark .btn--primary { background: var(--azure-deep); color: #fff; }
 .btn--primary:hover { background: var(--azure-deep); color: #fff; }
 
 /* ===================== TOP NAV ===================== */
 .topnav {
-  position: sticky;
-  top: 0;
-  z-index: 60;
-  height: var(--topnav-h);
-  background: var(--paper);
-  border-bottom: 1px solid var(--rule);
+    position: sticky;
+    top: 0;
+    z-index: 60;
+    height: var(--topnav-h);
+    background-color: rgba(255,255,255,.7);
+    border-bottom: 1px solid var(--rule);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
 }
 
 .topnav-inner {
@@ -140,7 +142,7 @@ html.dark .btn--primary { background: var(--azure); color: #fff; }
   font-style: italic;
   font-size: 16px;
 }
-html.dark .brand-mark { background: var(--azure); }
+html.dark .brand-mark { background: var(--azure-deep); }
 
 .brand-name {
   font-family: var(--sans);
@@ -150,7 +152,7 @@ html.dark .brand-mark { background: var(--azure); }
   color: var(--ink);
 }
 
-.brand-thin { font-weight: 400; color: var(--ink-faint); }
+.brand-thin { color: var(--azure-deep); }
 
 .topnav-right {
   display: flex;
@@ -242,7 +244,7 @@ html.dark .brand-mark { background: var(--azure); }
 
 .sidebar-toplink--active {
   background: var(--azure-soft);
-  color: var(--azure);
+  color: var(--azure-deep);
 }
 
 .sidebar-toplink:disabled { cursor: default; }
@@ -286,9 +288,9 @@ html.dark .brand-mark { background: var(--azure); }
 }
 
 .sidebar-link--active {
-  color: var(--azure);
+  color: var(--azure-deep);
   font-weight: 600;
-  border-left-color: var(--azure);
+  border-left-color: var(--azure-deep);
   background: var(--azure-soft);
 }
 
@@ -350,7 +352,7 @@ html.dark .brand-mark { background: var(--azure); }
   font-size: 11.5px;
   font-weight: 700;
   letter-spacing: 0.1em;
-  color: var(--azure);
+  color: var(--azure-deep);
   margin: 0;
 }
 
@@ -377,7 +379,7 @@ html.dark .brand-mark { background: var(--azure); }
 }
 
 .doc-page a {
-  color: var(--azure);
+  color: var(--azure-deep);
   text-decoration: none;
   font-weight: 500;
 }
@@ -499,8 +501,8 @@ kbd {
 }
 .toc-link:hover { color: var(--ink); }
 .toc-link--active {
-  color: var(--azure);
-  border-left-color: var(--azure);
+  color: var(--azure-deep);
+  border-left-color: var(--azure-deep);
   font-weight: 600;
 }
 
@@ -596,7 +598,7 @@ kbd {
 .pc-tab:hover { color: var(--ink); }
 .pc-tab--active {
   background: var(--paper);
-  color: var(--azure);
+  color: var(--azure-deep);
   box-shadow: 0 1px 3px rgba(0,0,0,0.08);
 }
 
@@ -609,7 +611,7 @@ kbd {
   color: var(--ink-soft);
   cursor: pointer;
 }
-.pc-copy:hover { border-color: var(--azure); color: var(--azure); }
+.pc-copy:hover { border-color: var(--azure-deep); color: var(--azure-deep); }
 
 .pc-code {
   background: var(--code-bg);
@@ -633,15 +635,15 @@ kbd {
 }
 .pc-stage .ns-enter-btn:hover,
 .pc-stage .ns-chip--active {
-  background: var(--azure);
+  background: var(--azure-deep);
 }
 .pc-stage .ns-cta {
-  background: var(--azure);
+  background: var(--azure-deep);
 }
 .pc-stage .ns-cta:hover {
   background: var(--azure-deep);
 }
-.pc-stage { --accent: #0d6efd; }
+.pc-stage { --accent: #0b5ed7; }
 
 @media (prefers-reduced-motion: reduce) {
   * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
@@ -671,7 +673,7 @@ kbd {
   color: var(--ink);
 }
 .fw-btn--active {
-  background: var(--azure);
+  background: var(--azure-deep);
   color: #fff !important;
-  box-shadow: 0 1px 3px rgba(13, 110, 253, 0.2);
+  box-shadow: 0 1px 3px rgba(11, 94, 215, 0.25);
 }

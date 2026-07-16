@@ -115,7 +115,7 @@ export default function InstallationPage() {
 
       <Callout type="info">
         Make sure you use a modern build tool. If you encounter issues, check the{" "}
-        <a href="https://github.com/vivekSinghInd/narrative-form" target="_blank" rel="noreferrer">
+        <a href="https://github.com/vivekSinghInd/narrative-forms" target="_blank" rel="noreferrer">
           GitHub repo
         </a>{" "}
         for known constraints.
