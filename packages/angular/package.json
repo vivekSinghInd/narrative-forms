@@ -1,13 +1,27 @@
 {
     "name": "@viveksinghind/narrative-form-angular",
-    "version": "1.0.6",
+    "version": "1.0.9",
     "description": "Angular components for narrative-form — typewriter-style sign-up flow",
     "author": "Vivek Singh <vivekSinghInd>",
     "license": "MIT",
     "sideEffects": false,
-    "files": [
-        "dist"
-    ],
+    "publishConfig": {
+        "directory": "dist"
+    },
+    "main": "fesm2022/viveksinghind-narrative-form-angular.mjs",
+    "module": "fesm2022/viveksinghind-narrative-form-angular.mjs",
+    "typings": "index.d.ts",
+    "exports": {
+        "./package.json": {
+            "default": "./package.json"
+        },
+        ".": {
+            "types": "./index.d.ts",
+            "esm2022": "./esm2022/viveksinghind-narrative-form-angular.mjs",
+            "esm": "./esm2022/viveksinghind-narrative-form-angular.mjs",
+            "default": "./fesm2022/viveksinghind-narrative-form-angular.mjs"
+        }
+    },
     "scripts": {
         "build": "ng-packagr -p ng-package.json",
         "clean": "rimraf dist",

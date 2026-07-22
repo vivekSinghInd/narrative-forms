@@ -259,6 +259,18 @@ Shipped out of the box — no setup needed:
 - `futureDate` — date must be in future
 - `pastDate` — date must be in past
 - `minAge` — calculated from date field
+- `e164Phone` — international phone format (e.g., +14155552671)
+- `iban` — International Bank Account Number format check
+- `creditCard` — Credit Card validation using Luhn algorithm
+- `usZipCode` — 5-digit or 9-digit US ZIP code
+- `usSsn` — US Social Security Number (XXX-XX-XXXX)
+- `ukPostcode` — UK postcode format
+- `domain` — domain name validation (e.g. example.com)
+- `ipAddress` — IPv4 or IPv6 address format
+- `uuid` — standard UUID format
+- `slug` — URL-friendly slug/username format
+- `hexColor` — Hex color code (e.g., #3B82F6)
+- `macAddress` — MAC address format
 
 ### Async Validation Visual States
 

@@ -31,7 +31,7 @@ import { NarrativeToastContainerComponent } from './toast-container.component';
       <div *ngIf="showFields" class="ns-fields" role="form" aria-live="polite">
         <ng-container *ngFor="let field of config.fields">
           <ns-line
-            *ngIf="snapshot.statuses[field.key]"
+            *ngIf="snapshot.statuses[field.key] && snapshot.statuses[field.key] !== 'idle'"
             [field]="field"
             [status]="snapshot.statuses[field.key]"
             [value]="snapshot.values[field.key]"
@@ -132,7 +132,14 @@ export class NarrativeFormComponent implements OnInit {
       this.completed.emit(currentValues);
       this.event.emit({ type: 'form_completed', payload: currentValues });
     } else {
-      this.formState.next();
+      // Find the next unconfirmed field and start its typing animation
+      const currentIndex = this.config.fields.findIndex(f => f.key === event.key);
+      for (let i = currentIndex + 1; i < this.config.fields.length; i++) {
+        const nextField = this.config.fields[i];
+        if (!nextField || this.snapshot.statuses[nextField.key] === 'confirmed') continue;
+        this.formState.startTyping(nextField.key);
+        break;
+      }
     }
   }
 

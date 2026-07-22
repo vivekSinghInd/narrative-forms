@@ -1,6 +1,6 @@
 {
     "name": "@viveksinghind/narrative-form-core",
-    "version": "1.0.6",
+    "version": "1.0.9",
     "description": "Core logic and state machine for narrative-form — framework agnostic typewriter form engine",
     "author": "Vivek Singh <vivekSinghInd>",
     "license": "MIT",

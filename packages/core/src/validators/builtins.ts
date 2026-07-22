@@ -135,4 +135,97 @@ export function registerBuiltinValidators(): void {
 
     return actualAge >= 18 || "You must be at least 18 years old";
   });
+
+  // ── Global & Regional validators ────────────────────────────────
+
+  /** International E.164 phone number format (e.g. +14155552671). */
+  registerValidator("e164Phone", (value) => {
+    const cleaned = value.replace(/[\s\-\(\)]/g, "");
+    return /^\+[1-9]\d{6,14}$/.test(cleaned) || "Enter a valid international phone number starting with + and country code";
+  });
+
+  /** International Bank Account Number (IBAN) standard check. */
+  registerValidator("iban", (value) => {
+    const cleaned = value.replace(/[\s\-]/g, "").toUpperCase();
+    if (!/^[A-Z]{2}\d{2}[A-Z0-9]{11,30}$/.test(cleaned)) {
+      return "Enter a valid IBAN number";
+    }
+    return true;
+  });
+
+  /** Credit Card number check using Luhn Algorithm. */
+  registerValidator("creditCard", (value) => {
+    const cleaned = value.replace(/[\s\-]/g, "");
+    if (!/^\d{13,19}$/.test(cleaned)) {
+      return "Enter a valid credit card number";
+    }
+    let sum = 0;
+    let shouldDouble = false;
+    for (let i = cleaned.length - 1; i >= 0; i--) {
+      let digit = parseInt(cleaned.charAt(i), 10);
+      if (shouldDouble) {
+        digit *= 2;
+        if (digit > 9) digit -= 9;
+      }
+      sum += digit;
+      shouldDouble = !shouldDouble;
+    }
+    return sum % 10 === 0 || "Enter a valid credit card number";
+  });
+
+  /** US ZIP code (5 digits or ZIP+4: 12345 or 12345-6789). */
+  registerValidator("usZipCode", (value) => {
+    return /^\d{5}(-\d{4})?$/.test(value.trim()) || "Enter a valid 5-digit or 9-digit US ZIP code";
+  });
+
+  /** US Social Security Number (XXX-XX-XXXX). */
+  registerValidator("usSsn", (value) => {
+    const cleaned = value.trim();
+    return /^(?!000|666|9\d{2})\d{3}-(?!00)\d{2}-(?!0000)\d{4}$/.test(cleaned) ||
+      "Enter a valid US SSN in XXX-XX-XXXX format";
+  });
+
+  /** UK Postcode format. */
+  registerValidator("ukPostcode", (value) => {
+    const cleaned = value.trim().toUpperCase();
+    return /^[A-Z]{1,2}\d[A-Z\d]?\s*\d[A-Z]{2}$/.test(cleaned) || "Enter a valid UK postcode";
+  });
+
+  /** Domain name format (e.g. example.com). */
+  registerValidator("domain", (value) => {
+    return /^(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}$/.test(value.trim()) ||
+      "Enter a valid domain name (e.g. example.com)";
+  });
+
+  /** IP Address (IPv4 or IPv6). */
+  registerValidator("ipAddress", (value) => {
+    const trimmed = value.trim();
+    const ipv4 = /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
+    const ipv6 = /^(?:[a-fA-F0-9]{1,4}:){7}[a-fA-F0-9]{1,4}$/;
+    return ipv4.test(trimmed) || ipv6.test(trimmed) || "Enter a valid IPv4 or IPv6 address";
+  });
+
+  /** Standard UUID format (e.g. 123e4567-e89b-12d3-a456-426614174000). */
+  registerValidator("uuid", (value) => {
+    return /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$/.test(value.trim()) ||
+      "Enter a valid UUID";
+  });
+
+  /** URL-friendly slug or username (letters, numbers, hyphens, underscores). */
+  registerValidator("slug", (value) => {
+    return /^[a-z0-9]+(?:[_-][a-z0-9]+)*$/i.test(value.trim()) ||
+      "Only lowercase letters, numbers, hyphens, and underscores allowed";
+  });
+
+  /** Hex color code (e.g. #FFF or #3B82F6). */
+  registerValidator("hexColor", (value) => {
+    return /^#?([a-fA-F0-9]{3}|[a-fA-F0-9]{6})$/.test(value.trim()) ||
+      "Enter a valid HEX color code (e.g. #3B82F6)";
+  });
+
+  /** MAC Address format (e.g. 00:1B:44:11:3A:B7 or 00-1B-44-11-3A-B7). */
+  registerValidator("macAddress", (value) => {
+    return /^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/.test(value.trim()) ||
+      "Enter a valid MAC address";
+  });
 }
