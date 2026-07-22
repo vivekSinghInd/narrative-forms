@@ -96,7 +96,7 @@ export default function InstallationPage() {
 
       <CodeBlock
         lang="terminal"
-        code={`# Using npm\nnpm install @viveksinghind/narrative-form-${framework}\n\n# Using yarn\nyarn add @viveksinghind/narrative-form-${framework}\n\n# Using pnpm\npnpm add @viveksinghind/narrative-form-${framework}`}
+        code={`# Using npm\nnpm install @viveksinghind/narrative-form-${framework} @viveksinghind/narrative-form-core\n\n# Using yarn\nyarn add @viveksinghind/narrative-form-${framework} @viveksinghind/narrative-form-core\n\n# Using pnpm\npnpm add @viveksinghind/narrative-form-${framework} @viveksinghind/narrative-form-core`}
       />
 
       <h2 id="usage">Usage</h2>

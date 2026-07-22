@@ -162,10 +162,12 @@ export default function ValidationPage() {
 "indianPhone"   "indianPincode"   "aadhaar"
 "pan"           "gst"             "ifsc"
 
-// Universal
-"email"  "url"  "strongPassword"
-"alphanumeric"  "noSpaces"  "futureDate"
-"pastDate"  "minAge"`}
+// Universal / Global
+"email"      "url"           "strongPassword"  "alphanumeric"
+"noSpaces"   "futureDate"    "pastDate"        "minAge"
+"e164Phone"  "iban"          "creditCard"      "usZipCode"
+"usSsn"      "ukPostcode"    "domain"          "ipAddress"
+"uuid"       "slug"          "hexColor"        "macAddress"`}
       />
 
       <Callout type="tip">

@@ -37,7 +37,7 @@ export default function LandingPage({ onGetStarted }: { onGetStarted: () => void
           <div className="hero-left">
             <span className="hero-badge">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10" /><path d="M12 16v-4M12 8h.01" /></svg>
-              v1.0.6 — Now Available
+              v1.0.9 — Now Available
             </span>
             <h1 className="hero-title">
               The Most Complete<br /><span className="hero-highlight">Narrative Form</span><br />Library
